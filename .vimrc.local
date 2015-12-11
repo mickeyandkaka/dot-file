@@ -1,0 +1,3 @@
+set cursorcolumn
+set nofoldenable
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
