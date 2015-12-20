@@ -1,3 +1,9 @@
-set cursorcolumn
 set nofoldenable
+set cursorcolumn
+command! -bang Wqa wqa<bang>
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+nmap <F5> :! make<CR>
+nmap <F6> :! ./main<CR>
+let g:ycm_confirm_extra_conf=0
+
