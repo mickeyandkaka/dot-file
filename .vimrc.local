@@ -1,9 +1,20 @@
 set nofoldenable
 set cursorcolumn
 command! -bang Wqa wqa<bang>
+set clipboard=unnamed
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
-nmap <F5> :! make<CR>
-nmap <F6> :! ./main<CR>
 let g:ycm_confirm_extra_conf=0
 
+func! Compile()
+    exec "w"
+    exec "! echo start compile... && echo && g++ -c % -Wall -g -fexceptions -DLOCAL && g++ %<.o -o %<"
+endfunc
+
+func! Run()
+    exec "! echo start run... && echo && ./%<"
+endfunc
+
+map <F5> :call Compile()<CR>
+imap <F5> <ESC>:call Compile()<CR>
+map <F6> :call Run()<CR>
