@@ -4,11 +4,12 @@ command! -bang Wqa wqa<bang>
 set clipboard=unnamed
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
+let g:ycm_global_ycm_extra_conf = './.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 
 func! Compile()
     exec "w"
-    exec "! echo start compile... && echo && g++ -c % -Wall -g -fexceptions -DLOCAL && g++ %<.o -o %<"
+    exec "! echo start compile... && echo  && g++ -c % -Wall -fexceptions -DLOCAL && g++ %<.o -o %<"
 endfunc
 
 func! Run()
