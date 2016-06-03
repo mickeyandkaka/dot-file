@@ -6,6 +6,7 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 let g:ycm_global_ycm_extra_conf = './.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
+let g:syntastic_python_flake8_post_args='--ignore=E501'
 
 func! Compile()
     exec "w"
