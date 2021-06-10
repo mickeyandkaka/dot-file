@@ -1,1 +1,16 @@
 Bundle 'rdnetto/YCM-Generator'
+Bundle 'rhysd/vim-clang-format'
+
+" 语义补全
+UnBundle 'scrooloose/syntastic'
+Bundle 'w0rp/ale'
+
+" c++11/14/17 高亮
+Bundle 'octol/vim-cpp-enhanced-highlight'
+
+" 文件 函数 搜索
+UnBundle 'ctrlpvim/ctrlp.vim'
+UnBundle 'tacahiroy/ctrlp-funky'
+Bundle 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+Bundle 'zxqfl/tabnine-vim'

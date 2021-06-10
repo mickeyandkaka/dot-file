@@ -1,22 +1,95 @@
-set nofoldenable
+"set nofoldenable
 set cursorcolumn
 command! -bang Wqa wqa<bang>
 set clipboard=unnamed
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+cmap w!! w !sudo tee > /dev/null %
+
+set foldmethod=marker
+set foldmarker={{{,}}}
+
+set number
+map 0 ^
+set laststatus=2
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
 
 let g:ycm_global_ycm_extra_conf = './.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
-let g:syntastic_python_flake8_post_args='--ignore=E501'
+
+" clang-format
+let g:clang_format#command='clang-format'
+let g:clang_format#auto_format=1
+
+"func! Compile()
+    "exec "w"
+    "exec "! echo start compile... && echo  && g++ -O3 -std=c++11 -c % -Wall -fexceptions -I /Users/mickey/documents/acm/gcj -DLOCAL && g++ -I /Users/mickey/documents/acm/gcj %<.o -o %<"
+"endfunc
 
 func! Compile()
     exec "w"
-    exec "! echo start compile... && echo  && g++ -c % -Wall -fexceptions -DLOCAL && g++ %<.o -o %<"
+    "exec "! echo start compile... && echo  && g++  -O3 -std=c++14 -stdlib=libc++ -DLOCAL -c % -Wall -fexceptions -Wextra -I /usr/local/Cellar/eigen/3.3.7/include/eigen3 && g++ %<.o -o %<"
+    exec "! echo start compile... && echo  && g++ -O2 -std=c++17 -g -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer -stdlib=libc++ -DLOCAL -DDEBUG -c % -Wshadow  -Wall -fexceptions -Wextra && g++ -g -fsanitize=address -fsanitize=undefined %<.o -o %<"
 endfunc
+
 
 func! Run()
     exec "! echo start run... && echo && ./%<"
 endfunc
 
+"func! Compile()
+    "exec "w"
+    "exec "! echo start compile... && echo  && /Users/mickey/documents/acM/gcj/dcj/dcj.sh build --source=%"
+"endfunc
+
+"func! Run()
+    "exec "! echo start run... && echo && /Users/mickey/documents/acM/gcj/dcj/dcj.sh run --executable=./%< --nodes=100 --output=all"
+"endfunc
+
+
+map <F1> <Nop>
 map <F5> :call Compile()<CR>
 imap <F5> <ESC>:call Compile()<CR>
 map <F6> :call Run()<CR>
+
+let g:ycm_filetype_specific_completion_to_disable = { 'cpp': 0 }
+let g:ycm_show_diagnostics_ui = 0
+
+let g:ale_linters = {'cpp': ['clang', 'cppcheck'], }
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+"let g:ale_open_list = 1
+"let g:ale_list_window_size = 5
+ 
+let g:ale_c_gcc_options = '-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wall -Wextra -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wall -Wextra -O2 -std=c++17'
+let g:ale_c_cppcheck_options = '-isysroot  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wall -Wextra -O2 -std=c99'
+let g:ale_cpp_cppcheck_options = '-isysroot  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wall -Wextra -O2 -std=c++17'
+
+let g:ycm_key_invoke_completion = '<c-z>'
+
+"let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_server_log_level = 'info'
+"let g:ycm_min_num_identifier_candidate_chars = 2
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_complete_in_strings=1
+"let g:ycm_key_invoke_completion = '<c-z>'
+"set completeopt=menu,menuone
+ 
+"noremap <c-z> <NOP>
+ 
+"let g:ycm_semantic_triggers =  {
+            "\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            "\ 'cs,lua,javascript': ['re!\w{2}'],
+            "\ }
+
+
+
+"let g:Lf_ShortcutF = '<c-p>'
+noremap <c-p> :LeaderfMru<cr>
