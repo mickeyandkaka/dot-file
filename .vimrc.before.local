@@ -1,3 +1,0 @@
-let g:airline_powerline_fonts=1
-let g:spf13_bundle_groups=['general', 'programming', 'python', 'misc', 'youcompleteme', 'HTML', 'go', 'writing']
-let g:ale_emit_conflict_warnings = 0
